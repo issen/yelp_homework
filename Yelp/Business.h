@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, assign) NSInteger numReviewes;
 @property (nonatomic, assign) CGFloat distance;
-@property (nonatomic, strong) NSString *price;
 
 -(id)initWithDictionary:(NSDictionary *) dictionary;
 

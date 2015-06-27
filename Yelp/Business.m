@@ -39,14 +39,14 @@
 
 
 +(NSArray *) businessWithDictionaries:(NSArray *)dictionaries {
-    NSMutableArray *result = [NSMutableArray array];
-    for (NSDictionary *dict in dictionaries) {
-        Business *biz = [[Business alloc] initWithDictionary:dict];
+    NSMutableArray *businesses = [NSMutableArray array];
+    for (NSDictionary *dictionary in dictionaries) {
+        Business *business = [[Business alloc] initWithDictionary:dictionary];
         
-        [result addObject:biz];
+        [businesses addObject:business];
     }
     
-    return result;
+    return businesses;
 }
 
 @end
