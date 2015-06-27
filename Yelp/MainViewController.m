@@ -17,11 +17,13 @@ NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
 NSString * const kYelpToken = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
 NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, FilterViewControllerDelegate ,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *businessTableView;
 
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSArray *business;
+
+- (void)fetchBusinessesWithQuery:(NSString *)query params:(NSDictionary *)params;
 
 @end
 
@@ -34,31 +36,56 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
         
-        [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
-            //NSLog(@"response: %@", response);
-            NSArray *businessDict = response[@"businesses"];
-            self.business = [Business businessWithDictionaries:businessDict];
-            [self.businessTableView reloadData];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error: %@", [error description]);
-        }];
+        [self fetchBusinessesWithQuery:@"Restaurants" params:nil];
+
     }
     return self;
 }
 
-- (void) getBussinessInfo {
-    
+- (void) dismissKeyBoard {
+    [self.navigationItem.titleView resignFirstResponder];
+}
+
+- (void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    NSLog(@"%@",searchBar.text);
+    [self fetchBusinessesWithQuery:searchBar.text params:nil];
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)fetchBusinessesWithQuery:(NSString *)query params:(NSDictionary *)params {
+
+    [self.client searchWithTerm:query params:params success:^(AFHTTPRequestOperation *operation, id response) {
+        //NSLog(@"response: %@", response);
+        NSArray *businessDict = response[@"businesses"];
+        self.business = [Business businessWithDictionaries:businessDict];
+        [self.businessTableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [error description]);
+    }];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.businessTableView.dataSource = self;
+    self.businessTableView.delegate = self;
+    
     [self.businessTableView registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil] forCellReuseIdentifier:@"BusinessCell"];
     self.businessTableView.rowHeight = UITableViewAutomaticDimension;
     self.businessTableView.estimatedRowHeight = 100;
-    self.businessTableView.dataSource = self;
-    self.businessTableView.delegate = self;
+    
+    self.title = @"Yelp";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(onFilterButton)];
+    
+    UISearchBar *searchBar = [[UISearchBar alloc]init];
+    searchBar.delegate = self;
+    self.navigationItem.titleView = searchBar;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +116,23 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     return UITableViewAutomaticDimension;
 }
 
+#pragma mark - Filter delegate methods
+- (void) filterViewController:(FilterViewController *)filterViewController didChangeFilters:(NSDictionary *)filters {
+    // fire new network event.
+    NSLog(@"fire new network event : %@", filters);
+    [self fetchBusinessesWithQuery:@"Restaurants" params:filters];
+}
 
+#pragma mark - Private method
+
+- (void)onFilterButton {
+    FilterViewController *vc = [[FilterViewController alloc] init];
+    vc.delegate = self;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+    
+    
+}
 
 @end

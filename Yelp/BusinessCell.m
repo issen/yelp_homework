@@ -16,6 +16,8 @@
     self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
     self.thumbImage.layer.cornerRadius = 3;
     self.thumbImage.clipsToBounds = YES;
+    self.ratingImage.layer.cornerRadius = 3;
+    self.ratingImage.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
