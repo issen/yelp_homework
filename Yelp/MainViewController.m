@@ -100,7 +100,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BusinessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessCell"];
-    NSLog(@"%@",cell);
+    //NSLog(@"%@",cell);
     
     cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), 99999);
     cell.contentView.bounds = cell.bounds;

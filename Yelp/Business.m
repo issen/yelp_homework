@@ -14,7 +14,7 @@
     self = [super init];
     
     if (self) {
-        //NSLog(@"%@", dictionary);
+        NSLog(@"%@", dictionary);
         NSArray *categories = dictionary[@"categories"];
         NSMutableArray *categoryNames = [NSMutableArray array];
         [categories enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -24,10 +24,14 @@
         
         self.name = dictionary[@"name"];
         self.imageUrl = dictionary[@"image_url"];
-        NSString *street = [dictionary valueForKeyPath:@"location.address"][0];
+        NSMutableArray *address = [dictionary valueForKeyPath:@"location.address"];
+        NSString *street = @"";
+        if (address.count > 0) {
+            street = [dictionary valueForKeyPath:@"location.address"][0];
+        }
         NSString *neighborhood = [dictionary valueForKeyPath:@"location.neighborhoods"][0];
         self.address = [NSString stringWithFormat:@"%@, %@", street, neighborhood];
-        NSLog(@"issen address ===> %@", self.address);
+        //NSLog(@"issen address ===> %@", self.address);
         
         self.numReviewes = [dictionary[@"review_count"] integerValue];
         self.ratingImageUrl = dictionary[@"rating_img_url"];

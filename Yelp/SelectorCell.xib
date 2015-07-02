@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SelectorCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bn9-ER-5Mu">
+                        <rect key="frame" x="8" y="8" width="304" height="29"/>
+                        <segments>
+                            <segment title="First"/>
+                            <segment title="Second"/>
+                        </segments>
+                        <connections>
+                            <action selector="selectorValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="rLz-kp-5bR"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bn9-ER-5Mu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Acm-uE-Q0E"/>
+                    <constraint firstAttribute="bottom" secondItem="bn9-ER-5Mu" secondAttribute="bottom" constant="8" id="egK-cq-lan"/>
+                    <constraint firstAttribute="trailing" secondItem="bn9-ER-5Mu" secondAttribute="trailing" constant="8" id="imf-OO-7Tu"/>
+                    <constraint firstItem="bn9-ER-5Mu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="l3u-5e-6qa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="selectorSegmentControl" destination="bn9-ER-5Mu" id="lHm-It-Nso"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
