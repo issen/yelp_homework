@@ -204,10 +204,10 @@
                                      @"name": @"radius_filter",
                                      @"options": @[
                                              @{@"name": @"Best Match", @"code": @""},
-                                             @{@"name": @"0.3 miles", @"code": @"482"},
-                                             @{@"name": @"1 mile", @"code": @"1609"},
-                                             @{@"name": @"5 miles", @"code": @"8046"},
-                                             @{@"name": @"20 miles", @"code": @"32186"}
+                                             @{@"name": @"100 miles", @"code": @"100"},
+                                             @{@"name": @"500 mile", @"code": @"500"},
+                                             @{@"name": @"1000 miles", @"code": @"1000"},
+                                             @{@"name": @"3000 miles", @"code": @"3000"}
                                              ]
                                      };
     
